@@ -6,7 +6,7 @@ CREATE TABLE passengers (
 	id BIGSERIAL PRIMARY KEY,
 	survived BOOLEAN NOT NULL,
 	pclass CLASS NOT NULL,
-	name VARCHAR(80) NOT NULL,
+	name VARCHAR(100) NOT NULL,
 	sex VARCHAR(6) NOT NULL,
 	age FLOAT NOT NULL,
 	siblings_spouses SMALLINT NOT NULL,
