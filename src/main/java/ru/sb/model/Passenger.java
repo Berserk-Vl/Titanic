@@ -14,7 +14,7 @@ public class Passenger {
     private Class pClass;
     private String name;
     private String sex;
-    private short age;
+    private float age;
     @Column(name = "siblings_spouses")
     private short siblingSpouses;
     @Column(name = "parents_children")
@@ -25,7 +25,7 @@ public class Passenger {
     }
 
     public Passenger(Long id, boolean survived, Class pClass, String name, String sex,
-                     short age, short siblingSpouses, short parentsChildren, double fare) {
+                     float age, short siblingSpouses, short parentsChildren, double fare) {
         this.id = id;
         this.survived = survived;
         this.pClass = pClass;
@@ -38,7 +38,7 @@ public class Passenger {
     }
 
     public Passenger(boolean survived, Class pClass, String name, String sex,
-                     short age, short siblingSpouses, short parentsChildren, double fare) {
+                     float age, short siblingSpouses, short parentsChildren, double fare) {
         this.survived = survived;
         this.pClass = pClass;
         this.name = name;
@@ -89,11 +89,11 @@ public class Passenger {
         this.sex = sex;
     }
 
-    public short getAge() {
+    public float getAge() {
         return age;
     }
 
-    public void setAge(short age) {
+    public void setAge(float age) {
         this.age = age;
     }
 

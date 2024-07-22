@@ -8,7 +8,7 @@ CREATE TABLE passengers (
 	pclass CLASS NOT NULL,
 	name VARCHAR(80) NOT NULL,
 	sex VARCHAR(6) NOT NULL,
-	age SMALLINT NOT NULL,
+	age FLOAT NOT NULL,
 	siblings_spouses SMALLINT NOT NULL,
 	parents_children SMALLINT NOT NULL,
 	fare DOUBLE PRECISION NOT NULL
