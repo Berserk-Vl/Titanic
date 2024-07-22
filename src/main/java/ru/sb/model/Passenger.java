@@ -8,18 +8,18 @@ public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean survived;
+    private Boolean survived;
     @Enumerated(EnumType.STRING)
     @Column(name = "pclass")
     private Class pClass;
     private String name;
     private String sex;
-    private float age;
+    private Float age;
     @Column(name = "siblings_spouses")
-    private short siblingSpouses;
+    private Short siblingSpouses;
     @Column(name = "parents_children")
-    private short parentsChildren;
-    private double fare;
+    private Short parentsChildren;
+    private Double fare;
 
     public Passenger() {
     }
@@ -39,17 +39,10 @@ public class Passenger {
 
     public Passenger(boolean survived, Class pClass, String name, String sex,
                      float age, short siblingSpouses, short parentsChildren, double fare) {
-        this.survived = survived;
-        this.pClass = pClass;
-        this.name = name;
-        this.sex = sex;
-        this.age = age;
-        this.siblingSpouses = siblingSpouses;
-        this.parentsChildren = parentsChildren;
-        this.fare = fare;
+        this(null, survived, pClass, name, sex, age, siblingSpouses, parentsChildren, fare);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -57,7 +50,7 @@ public class Passenger {
         this.id = id;
     }
 
-    public boolean isSurvived() {
+    public Boolean isSurvived() {
         return survived;
     }
 
@@ -65,8 +58,8 @@ public class Passenger {
         this.survived = survived;
     }
 
-    public String getPClass() {
-        return pClass.name();
+    public Class getPClass() {
+        return pClass;
     }
 
     public void setPClass(Class pClass) {
@@ -89,7 +82,7 @@ public class Passenger {
         this.sex = sex;
     }
 
-    public float getAge() {
+    public Float getAge() {
         return age;
     }
 
@@ -97,7 +90,7 @@ public class Passenger {
         this.age = age;
     }
 
-    public short getSiblingSpouses() {
+    public Short getSiblingSpouses() {
         return siblingSpouses;
     }
 
@@ -105,7 +98,7 @@ public class Passenger {
         this.siblingSpouses = siblingSpouses;
     }
 
-    public short getParentsChildren() {
+    public Short getParentsChildren() {
         return parentsChildren;
     }
 
@@ -113,7 +106,7 @@ public class Passenger {
         this.parentsChildren = parentsChildren;
     }
 
-    public double getFare() {
+    public Double getFare() {
         return fare;
     }
 
