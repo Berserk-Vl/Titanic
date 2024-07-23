@@ -69,17 +69,32 @@ public class PassengerController {
             }
         }
         Map<String, Object> map = new HashMap<>();
+        List<Passenger> passengers = passengerStream.toList();
         double totalFare = 0;
         long totalHaveRelatives = 0;
         long totalSurvived = 0;
-        List<Passenger> passengers = passengerStream.toList();
+        long totalPassengers = passengers.size();
         for (Passenger passenger : passengers) {
             totalFare += passenger.getFare();
             totalHaveRelatives += passenger.getSiblingSpouses() > 0 || passenger.getParentsChildren() > 0 ? 1 : 0;
             totalSurvived += passenger.isSurvived() ? 1 : 0;
         }
+        if (queryParameters.containsKey("limit")) {
+            try {
+                int limit = Integer.parseInt(queryParameters.get("limit"));
+                if (queryParameters.containsKey("offset")) {
+                    int offset = Integer.parseInt(queryParameters.get("offset"));
+                    passengers = passengers.stream().skip(offset).limit(limit).toList();
+                } else {
+                    passengers = passengers.stream().limit(limit).toList();
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
         map.put("passengers", passengers);
-        map.put("statistic", Map.of("total fare", totalFare, " total have relatives", totalHaveRelatives, "total survived", totalSurvived));
+        map.put("statistic", Map.of("total fare", totalFare, "total have relatives", totalHaveRelatives,
+                "total survived", totalSurvived, "total passengers", totalPassengers));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
