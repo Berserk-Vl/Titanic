@@ -41,6 +41,35 @@ public class PassengerController {
                         passengerStream = passengerService.findAll().stream().sorted((o1, o2) -> o2.getFare().compareTo(o1.getFare()));
             }
         }
+        if (queryParameters.containsKey("survived")) {
+            if (queryParameters.get("survived").equals("true")) {
+                passengerStream = passengerStream.filter(Passenger::isSurvived);
+            } else if (queryParameters.get("survived").equals("false")) {
+                passengerStream = passengerStream.filter(passenger -> !passenger.isSurvived());
+            }
+        }
+        if (queryParameters.containsKey("age")) {
+            if(queryParameters.get("age").equals("adult")){
+                passengerStream = passengerStream.filter(passenger -> passenger.getAge() > 16);
+            }
+        }
+        if (queryParameters.containsKey("sex")) {
+            if (queryParameters.get("sex").equals("male")) {
+                passengerStream = passengerStream.filter(passenger -> passenger.getSex().equals("male"));
+            } else if (queryParameters.get("sex").equals("female")) {
+                passengerStream = passengerStream.filter(passenger -> passenger.getSex().equals("female"));
+            }
+        }
+        if (queryParameters.containsKey("relatives")) {
+            switch (queryParameters.get("relatives")) {
+                case "single" -> passengerStream = passengerStream.filter(
+                        passenger -> passenger.getSiblingSpouses() == 0 && passenger.getParentsChildren() == 0);
+                case "siblings-spouses" -> passengerStream = passengerStream.filter(
+                        passenger -> passenger.getSiblingSpouses() > 0);
+                case "parents-children" -> passengerStream = passengerStream.filter(
+                        passenger -> passenger.getParentsChildren() > 0);
+            }
+        }
         return new ResponseEntity<>(passengerStream.toList(), HttpStatus.OK);
     }
 
