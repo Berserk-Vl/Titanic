@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.sb.model.Passenger;
 import ru.sb.service.PassengerService;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 @RestController
@@ -23,7 +21,7 @@ public class PassengerController {
     }
 
     @GetMapping("/passengers")
-    ResponseEntity<List<Passenger>> getPassengers(@RequestParam Map<String, String> queryParameters) {
+    ResponseEntity<Map<String, Object>> getPassengers(@RequestParam Map<String, String> queryParameters) {
         Stream<Passenger> passengerStream = passengerService.findAll().stream();
         if (queryParameters.containsKey("sort")) {
             switch (queryParameters.get("sort")) {
@@ -49,7 +47,7 @@ public class PassengerController {
             }
         }
         if (queryParameters.containsKey("age")) {
-            if(queryParameters.get("age").equals("adult")){
+            if (queryParameters.get("age").equals("adult")) {
                 passengerStream = passengerStream.filter(passenger -> passenger.getAge() > 16);
             }
         }
@@ -70,7 +68,19 @@ public class PassengerController {
                         passenger -> passenger.getParentsChildren() > 0);
             }
         }
-        return new ResponseEntity<>(passengerStream.toList(), HttpStatus.OK);
+        Map<String, Object> map = new HashMap<>();
+        double totalFare = 0;
+        long totalHaveRelatives = 0;
+        long totalSurvived = 0;
+        List<Passenger> passengers = passengerStream.toList();
+        for (Passenger passenger : passengers) {
+            totalFare += passenger.getFare();
+            totalHaveRelatives += passenger.getSiblingSpouses() > 0 || passenger.getParentsChildren() > 0 ? 1 : 0;
+            totalSurvived += passenger.isSurvived() ? 1 : 0;
+        }
+        map.put("passengers", passengers);
+        map.put("statistic", Map.of("total fare", totalFare, " total have relatives", totalHaveRelatives, "total survived", totalSurvived));
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping("/passengers/{name}")
