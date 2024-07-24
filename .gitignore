@@ -31,3 +31,44 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Compiled output
+/titanic-app/dist
+/titanic-app/tmp
+/titanic-app/out-tsc
+/titanic-app/bazel-out
+
+# Node
+/titanic-app/node_modules
+/titanic-app/npm-debug.log
+/titanic-app/yarn-error.log
+
+# IDEs and editors
+/titanic-app/.idea/
+/titanic-app/.project
+/titanic-app/.classpath
+.c9/
+/titanic-app/*.launch
+/titanic-app/.settings/
+/titanic-app/*.sublime-workspace
+
+# Visual Studio Code
+/titanic-app/.vscode/*
+!/titanic-app/.vscode/settings.json
+!/titanic-app/.vscode/tasks.json
+!/titanic-app/.vscode/launch.json
+!/titanic-app/.vscode/extensions.json
+/titanic-app/.history/*
+
+# Miscellaneous
+/titanic-app/.angular/
+/titanic-app/.sass-cache/
+/titanic-app/connect.lock
+/titanic-app/coverage
+/titanic-app/libpeerconnection.log
+/titanic-app/testem.log
+/titanic-app/typings
+
+# System files
+/titanic-app/.DS_Store
+/titanic-app/Thumbs.db
