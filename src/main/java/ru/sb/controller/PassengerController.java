@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sb.model.Passenger;
@@ -24,7 +23,12 @@ public class PassengerController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/passengers")
     ResponseEntity<Map<String, Object>> getPassengers(@RequestParam Map<String, String> queryParameters) {
-        Stream<Passenger> passengerStream = passengerService.findAll().stream();
+        Stream<Passenger> passengerStream;
+        if (queryParameters.containsKey("name")) {
+            passengerStream = passengerService.findByName(queryParameters.get("name")).stream();
+        } else {
+            passengerStream = passengerService.findAll().stream();
+        }
         if (queryParameters.containsKey("sort")) {
             switch (queryParameters.get("sort")) {
                 case "name-asc" ->
@@ -98,10 +102,5 @@ public class PassengerController {
         map.put("total", Map.of("fare", totalFare, "haveRelatives", totalHaveRelatives,
                 "survived", totalSurvived, "passengers", totalPassengers));
         return new ResponseEntity<>(map, HttpStatus.OK);
-    }
-
-    @GetMapping("/passengers/{name}")
-    ResponseEntity<List<Passenger>> getPassengersByName(@PathVariable(value = "name") String name) {
-        return new ResponseEntity<>(passengerService.findByName(name), HttpStatus.OK);
     }
 }
