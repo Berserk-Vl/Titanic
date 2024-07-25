@@ -1,0 +1,39 @@
+/* Structure */
+.table-container {
+    position: relative;
+}
+
+.passengers-table-container {
+    position: relative;
+    min-height: 200px;
+    max-height: 800px;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+}
+
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+    width: 64px;
+}
+
+.mat-column-created {
+    width: 124px;
+}
+
+tr.mat-mdc-footer-row td {
+    font-weight: bold;
+}
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td,
+th {
+    width: 25%;
+}
