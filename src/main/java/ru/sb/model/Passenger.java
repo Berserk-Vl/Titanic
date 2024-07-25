@@ -16,7 +16,7 @@ public class Passenger {
     private String sex;
     private Float age;
     @Column(name = "siblings_spouses")
-    private Short siblingSpouses;
+    private Short siblingsSpouses;
     @Column(name = "parents_children")
     private Short parentsChildren;
     private Double fare;
@@ -25,21 +25,21 @@ public class Passenger {
     }
 
     public Passenger(Long id, boolean survived, Class pClass, String name, String sex,
-                     float age, short siblingSpouses, short parentsChildren, double fare) {
+                     float age, short siblingsSpouses, short parentsChildren, double fare) {
         this.id = id;
         this.survived = survived;
         this.pClass = pClass;
         this.name = name;
         this.sex = sex;
         this.age = age;
-        this.siblingSpouses = siblingSpouses;
+        this.siblingsSpouses = siblingsSpouses;
         this.parentsChildren = parentsChildren;
         this.fare = fare;
     }
 
     public Passenger(boolean survived, Class pClass, String name, String sex,
-                     float age, short siblingSpouses, short parentsChildren, double fare) {
-        this(null, survived, pClass, name, sex, age, siblingSpouses, parentsChildren, fare);
+                     float age, short siblingsSpouses, short parentsChildren, double fare) {
+        this(null, survived, pClass, name, sex, age, siblingsSpouses, parentsChildren, fare);
     }
 
     public Long getId() {
@@ -90,12 +90,12 @@ public class Passenger {
         this.age = age;
     }
 
-    public Short getSiblingSpouses() {
-        return siblingSpouses;
+    public Short getSiblingsSpouses() {
+        return siblingsSpouses;
     }
 
-    public void setSiblingSpouses(short siblingSpouses) {
-        this.siblingSpouses = siblingSpouses;
+    public void setSiblingsSpouses(short siblingsSpouses) {
+        this.siblingsSpouses = siblingsSpouses;
     }
 
     public Short getParentsChildren() {

@@ -61,9 +61,9 @@ public class PassengerController {
         if (queryParameters.containsKey("relatives")) {
             switch (queryParameters.get("relatives")) {
                 case "single" -> passengerStream = passengerStream.filter(
-                        passenger -> passenger.getSiblingSpouses() == 0 && passenger.getParentsChildren() == 0);
+                        passenger -> passenger.getSiblingsSpouses() == 0 && passenger.getParentsChildren() == 0);
                 case "siblings-spouses" -> passengerStream = passengerStream.filter(
-                        passenger -> passenger.getSiblingSpouses() > 0);
+                        passenger -> passenger.getSiblingsSpouses() > 0);
                 case "parents-children" -> passengerStream = passengerStream.filter(
                         passenger -> passenger.getParentsChildren() > 0);
             }
@@ -76,7 +76,7 @@ public class PassengerController {
         long totalPassengers = passengers.size();
         for (Passenger passenger : passengers) {
             totalFare += passenger.getFare();
-            totalHaveRelatives += passenger.getSiblingSpouses() > 0 || passenger.getParentsChildren() > 0 ? 1 : 0;
+            totalHaveRelatives += passenger.getSiblingsSpouses() > 0 || passenger.getParentsChildren() > 0 ? 1 : 0;
             totalSurvived += passenger.isSurvived() ? 1 : 0;
         }
         if (queryParameters.containsKey("limit")) {
