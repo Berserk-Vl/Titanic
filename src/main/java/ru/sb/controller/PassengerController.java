@@ -93,7 +93,7 @@ public class PassengerController {
             }
         }
         map.put("passengers", passengers);
-        map.put("total", Map.of("fare", totalFare, "have relatives", totalHaveRelatives,
+        map.put("total", Map.of("fare", totalFare, "haveRelatives", totalHaveRelatives,
                 "survived", totalSurvived, "passengers", totalPassengers));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
