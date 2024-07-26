@@ -37,3 +37,30 @@ td,
 th {
     width: 25%;
 }
+
+.filters-section {
+    margin: 10px 0;
+    margin: auto;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+}
+
+mat-radio-button {
+    margin: 5px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    align-items: flex-start;
+}
+
+.table-section {
+    margin: auto;
+}
