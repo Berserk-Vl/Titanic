@@ -166,6 +166,7 @@ export class AppComponent {
     parametersMap!: Map<string, string>;
 
     constructor(private _httpClient: HttpClient) {
+        // creates and initializes parametersMap with default values
         this.parametersMap = new Map<string, string>();
         this.parametersMap.set('offset', '0');
         this.parametersMap.set('limit', '50');
@@ -175,6 +176,7 @@ export class AppComponent {
         this.parametersMap.set('age', '');
         this.parametersMap.set('sex', '');
         this.parametersMap.set('relatives', '');
+        // initialization with default value (until data is loaded from the server) for the table
         this.passengerBatch = {
             passengers: [
                 {
@@ -194,6 +196,7 @@ export class AppComponent {
         this.requestData();
     }
 
+    // Request data from the server.
     async requestData() {
         this.passengerService.getPassengers(this.parametersMap).subscribe((passengerBatch) => {
             this.passengerBatch = passengerBatch;
@@ -201,12 +204,14 @@ export class AppComponent {
         });
     }
 
+    // Handles events for changes (page)|(items per page).
     paginatorEvent(pageEvent: PageEvent) {
         this.parametersMap.set('offset', pageEvent.pageIndex.toString());
         this.parametersMap.set('limit', pageEvent.pageSize.toString());
         this.requestData();
     }
 
+    // Handles events for entering search queries.
     searchByName(event: Event) {
         if ((event as KeyboardEvent).code == 'Enter') {
             const name = (event.target as HTMLInputElement).value;
@@ -215,6 +220,7 @@ export class AppComponent {
         }
     }
 
+    // Handles events for filter checkboxs.
     onCheckBoxChange(event: MatCheckboxChange) {
         switch (event.source.name) {
             case 'survived':
@@ -232,6 +238,7 @@ export class AppComponent {
         }
     }
 
+    // Handles events for sort radio buttons.
     onRadioChange(event: Event) {
         this.parametersMap.set('sort', (event.target as HTMLInputElement).value);
     }

@@ -12,6 +12,7 @@ export class PassengerService {
 
     constructor(private _httpClient: HttpClient) {}
 
+    // Request passenger data from the server.
     getPassengers(queryParameters: Map<string, string>): Observable<PassengerBatch> {
         let baseAddress = 'http://localhost:8080/passengers';
         if (queryParameters.size == 0) {
@@ -26,6 +27,7 @@ export class PassengerService {
         return this._httpClient.get<PassengerBatch>(baseAddress);
     }
 
+    // Adds parameters to the base query.
     private addParameter(queryParameters: Map<string, string>, parameter: string): string {
         if (queryParameters.has(parameter) && (queryParameters.get(parameter) || '').length > 0) {
             let and = '';
