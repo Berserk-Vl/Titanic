@@ -32,6 +32,9 @@ public class TitanicApplication implements CommandLineRunner {
         }
     }
 
+    /**
+     * Loads data from the given URL and stores it into database.
+     */
     private static void loadData(PassengerRepository passengerRepository) {
         try {
             URL url = new URL("https://web.stanford.edu/class/archive/cs/cs109/cs109.1166/stuff/titanic.csv");

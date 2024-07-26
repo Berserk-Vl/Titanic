@@ -26,11 +26,13 @@ public class PassengerController {
     @GetMapping("/passengers")
     ResponseEntity<Map<String, Object>> getPassengers(@RequestParam Map<String, String> queryParameters) {
         Stream<Passenger> passengerStream;
+        // searches for passengers whose names match (exactly | partially) the passed parameter
         if (queryParameters.containsKey("name")) {
             passengerStream = passengerService.findByName(queryParameters.get("name")).stream();
         } else {
             passengerStream = passengerService.findAll().stream();
         }
+        // sorts passengers by the specified order and field
         if (queryParameters.containsKey("sort")) {
             switch (queryParameters.get("sort")) {
                 case "name-asc" ->
@@ -47,6 +49,7 @@ public class PassengerController {
                         passengerStream = passengerService.findAll().stream().sorted((o1, o2) -> o2.getFare().compareTo(o1.getFare()));
             }
         }
+        // filters passengers by the field survivied
         if (queryParameters.containsKey("survived")) {
             if (queryParameters.get("survived").equals("true")) {
                 passengerStream = passengerStream.filter(Passenger::isSurvived);
@@ -54,11 +57,13 @@ public class PassengerController {
                 passengerStream = passengerStream.filter(passenger -> !passenger.isSurvived());
             }
         }
+        // filters passengers by the age field, leaving only those who are over 16
         if (queryParameters.containsKey("age")) {
             if (queryParameters.get("age").equals("adult")) {
                 passengerStream = passengerStream.filter(passenger -> passenger.getAge() > 16);
             }
         }
+        // filters passengers by sex field
         if (queryParameters.containsKey("sex")) {
             if (queryParameters.get("sex").equals("male")) {
                 passengerStream = passengerStream.filter(passenger -> passenger.getSex().equals("male"));
@@ -66,6 +71,7 @@ public class PassengerController {
                 passengerStream = passengerStream.filter(passenger -> passenger.getSex().equals("female"));
             }
         }
+        // filters passengers by siblingsSpouses and parentsChildren fields
         if (queryParameters.containsKey("relatives")) {
             switch (queryParameters.get("relatives")) {
                 case "single" -> passengerStream = passengerStream.filter(
@@ -76,6 +82,7 @@ public class PassengerController {
                         passenger -> passenger.getParentsChildren() > 0);
             }
         }
+        // calculates general statistics on filtered/sorted data
         Map<String, Object> map = new HashMap<>();
         List<Passenger> passengers = passengerStream.toList();
         double totalFare = 0;
@@ -87,6 +94,7 @@ public class PassengerController {
             totalHaveRelatives += passenger.getSiblingsSpouses() > 0 || passenger.getParentsChildren() > 0 ? 1 : 0;
             totalSurvived += passenger.isSurvived() ? 1 : 0;
         }
+        // leaves only the selected range (pagination)
         if (queryParameters.containsKey("limit")) {
             try {
                 int limit = Integer.parseInt(queryParameters.get("limit"));
