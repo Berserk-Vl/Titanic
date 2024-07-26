@@ -90,7 +90,7 @@ public class PassengerController {
                 int limit = Integer.parseInt(queryParameters.get("limit"));
                 if (queryParameters.containsKey("offset")) {
                     int offset = Integer.parseInt(queryParameters.get("offset"));
-                    passengers = passengers.stream().skip(offset).limit(limit).toList();
+                    passengers = passengers.stream().skip(offset * limit).limit(limit).toList();
                 } else {
                     passengers = passengers.stream().limit(limit).toList();
                 }
