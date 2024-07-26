@@ -1,5 +1,6 @@
 package ru.sb.controller;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +21,7 @@ public class PassengerController {
         this.passengerService = passengerService;
     }
 
+    @Cacheable(value = "passengers")
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/passengers")
     ResponseEntity<Map<String, Object>> getPassengers(@RequestParam Map<String, String> queryParameters) {
