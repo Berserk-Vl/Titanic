@@ -1,5 +1,5 @@
 export interface Total {
-    survived: boolean;
+    survived: number;
     haveRelatives: number;
     fare: number;
     passengers: number;
